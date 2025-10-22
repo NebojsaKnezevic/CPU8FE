@@ -57,18 +57,26 @@ function useInterval(callback: () => void, delay: number | null) {
 export default function TestingGround(): JSX.Element {
 
     // const [registers, setRegisters] = useState<IRegister[]>([]);
-       const {
-            r0, setR0, r0s, setR0s, r0e, setR0e,
-            r1, setR1, r1s, setR1s, r1e, setR1e,
-            r2, setR2, r2s, setR2s, r2e, setR2e,
-            r3, setR3, r3s, setR3s, r3e, setR3e,
-            setSystemBus
-        } = useRegisters();
+    const {
+        tmp, setTmp, tmps, setTmps, tmpe, setTmpe,
 
-    const [ir, setIr] = useState<IRegister>();
-    const [iar, setIar] = useState<IRegister>();
-    const [acc, setAcc] = useState<IRegister>();
-    const [mar, setMar] = useState<IRegister>();
+        r0, setR0, r0s, setR0s, r0e, setR0e,
+        r1, setR1, r1s, setR1s, r1e, setR1e,
+        r2, setR2, r2s, setR2s, r2e, setR2e,
+        r3, setR3, r3s, setR3s, r3e, setR3e,
+
+        marl, setMarl, marls, setMarls, marle, setMarle,
+        acc, setAcc, accs, setAccs, acce, setAcce,
+
+        ir, setIr, irs, setIrs, ire, setIre,
+        iar, setIar, iars, setIars, iare, setIare,
+        setSystemBus
+    } = useRegisters();
+
+    // const [ir, setIr] = useState<IRegister>();
+    // const [iar, setIar] = useState<IRegister>();
+    // const [acc, setAcc] = useState<IRegister>();
+    // const [mar, setMar] = useState<IRegister>();
     const [ramGrid, setRamGrid] = useState<IRamCell[][]>([]);
     const [ramColumns, setRamColumns] = useState<any[]>([]);
     const [ramRows, setRamRows] = useState<any[]>([]);
@@ -77,7 +85,21 @@ export default function TestingGround(): JSX.Element {
 
 
     const refreshState = () => {
-          setSystemBus(computer.bus.getOutput())
+
+        setSystemBus(computer.bus.getOutput())
+
+        setMarl(computer.ram.marl.getData());
+        setMarls(computer.controlUnit.controlLogicCore.mar_andGateS.getOutput());
+        // setTmpe(computer.controlUnit.controlLogicCore.tmp_andGateE.getOutput());
+
+        setAcc(computer.acc.getData());
+        setAccs(computer.controlUnit.controlLogicCore.acc_andGateS.getOutput());
+        setAcce(computer.controlUnit.controlLogicCore.acc_andGateE.getOutput());
+
+        setTmp(computer.tmp.getData());
+        setTmps(computer.controlUnit.controlLogicCore.tmp_andGateS.getOutput());
+        setTmpe(computer.controlUnit.controlLogicCore.tmp_andGateE.getOutput());
+
         setR0(computer.registers[0].getData());
         setR0s(computer.controlUnit.controlLogicCore.regB_set_r0_andM.getOutput())
         setR0e(
@@ -106,17 +128,27 @@ export default function TestingGround(): JSX.Element {
             ||
             computer.controlUnit.controlLogicCore.regB_enable_r3_andM.getOutput()
         )       // niz objekata registara
-        setIr(computer.ir);                          // objekat IR
-        setIar(computer.iar);                        // objekat IAR
-        setAcc(computer.acc);                        // objekat ACC
-        setMar(computer.ram.marl);                    // objekat MAR
+
+
+        setIar(computer.iar.getData());
+        setIars(computer.controlUnit.controlLogicCore.iar_OrmS.getOutput());
+        setIare(computer.controlUnit.controlLogicCore.iar_OrmE.getOutput());
+
+        setIr(computer.ir.getData());
+        setIre(computer.controlUnit.controlLogicCore.ir_OrmGate.getOutput());
+        setIrs(computer.controlUnit.controlLogicCore.ir_andGateS.getOutput());
+
+        // setIr(computer.ir);                          // objekat IR
+        // setIar(computer.iar);                        // objekat IAR
+        // setAcc(computer.acc);                        // objekat ACC
+        // setMar(computer.ram.marl);                    // objekat MAR
         setRamGrid(computer.ram.dataGrid.map(row => [...row])); // niz nizova objekata
         setRamColumns([...computer.ram.columnDecoder.getOutput()]); // niz words
         setRamRows([...computer.ram.rowDecoder.getOutput()]);
     };
 
     const [run, setRun] = useState(false);
-    const [delay, setDelay] = useState<number>(1);
+    const [delay, setDelay] = useState<number>(100);
 
     useInterval(
         () => {
@@ -246,10 +278,10 @@ export default function TestingGround(): JSX.Element {
                             <td>{r1}</td>
                             <td>{r2}</td>
                             <td>{r3}</td>
-                            <td>{ir?.getData()}</td>
-                            <td>{iar?.getData()}</td>
-                            <td>{acc?.getData()}</td>
-                            <td>{mar?.getData()}</td>
+                            <td>{ir}</td>
+                            <td>{iar}</td>
+                            <td>{acc}</td>
+                            <td>{marl}</td>
                         </tr>
                     </tbody>
                 </table>

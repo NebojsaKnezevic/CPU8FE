@@ -1,6 +1,7 @@
 import React, { type JSX } from "react";
-import { Rect, Text } from "react-konva";
+import { Group, Line, Rect, Text } from "react-konva";
 import type { Byte } from "../../../../../CPU8/dist/interface/interfaces";
+import { KonvaTheme } from "../../../constants/konva-theme";
 
 interface IRegisterUI {
     x: number,
@@ -8,46 +9,53 @@ interface IRegisterUI {
     width: number,
     height: number,
     data: Byte,
-    name: string
+    name: string,
+    set: number,
+    enable: number
 }
 
 
 export default function Register(props: IRegisterUI): JSX.Element {
-    const { x, y, width, height, data,name } = props;
+    const { x, y, width, height, data, name, set, enable } = props;
+    const setEnablePinLength = 20;
+
+    let regColor = 'lightgrey';
+
+    if(set) regColor = "orange";
+    if(enable) regColor = "blue";
 
     return (
-        <>
-           
+        <Group x={x} y={y}>
+     
+
             <Rect
-                x={x}
-                y={y}
+                strokeWidth={KonvaTheme.register.strokeWidth+2}
+                stroke={regColor}
                 width={width}
                 height={height}
                 fill="white"
-                shadowBlur={4}
-            // draggable
             />
-             <Text
-                x={x + (width / 2)}
-                y={y - 30}
+            <Text
+                width={width}
+                height={height}
                 text={name}
-                fontSize={height * 0.4}
+                fontSize={22}
                 fontFamily="Calibri"
                 fill="red"
-                // offsetX={20} // Approximate half width
-                // offsetY={30}
+                align="center"
+                offsetY={-2}
             />
-             <Text
-                x={x}
-                y={y}
+            <Text
+                width={width}
+                height={height}
                 text={data?.toString().replaceAll(',', '')}
-                fontSize={height * 0.4}
+                fontSize={22}
                 fontFamily="Calibri"
                 fill="red"
-                // offsetX={60} // Approximate half width
-      
+                align="center"
+                offsetY={-16}
             />
-        </>
+        </Group>
 
     );
 }

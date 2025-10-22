@@ -65,7 +65,7 @@ export default function Connection(props: IConnectionProps) {
                         {
                             if(!connectToMainBus) calc = 0;
                             if (j === 1) {
-                                return KonvaTheme.stage.height - p ;
+                                return  p ;
                             }
                             else
                                 return KonvaTheme.stage.height - calc ;

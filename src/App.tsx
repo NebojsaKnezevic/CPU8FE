@@ -11,11 +11,12 @@ function App(): JSX.Element {
 
   return (
     <article>
-      <section>
-        <TestingGround />
-      </section>
+     
       <section>
         <ResponsiveStage />
+      </section>
+       <section>
+        <TestingGround />
       </section>
 
     </article>
