@@ -5,13 +5,6 @@ import { KonvaTheme } from "../../../constants/konva-theme";
 import Connection from "./connection/connection";
 import ArcConnection from "./arc-connection/arc-connection";
 
-interface ISystemBus {
-  parentDimension: {
-    width: number;
-    height: number;
-  };
-
-}
 
 function angle() {
   let x = 0;
@@ -20,8 +13,7 @@ function angle() {
 }
 
 
-export default function SystemBus(props: ISystemBus): JSX.Element {
-  const { parentDimension } = props;
+export default function SystemBus(): JSX.Element {
   const gap = KonvaTheme.bus.gap;
   const lineWidth = KonvaTheme.bus.strokeWidth;
   const busWidth = KonvaTheme.bus.busWidth([0,0,0,0,0,0,0,0], gap);
@@ -30,23 +22,54 @@ export default function SystemBus(props: ISystemBus): JSX.Element {
     systemBus
   } = useRegisters();
 
-  const incAnglex = angle();
-  const incAngley = angle();
-  const incAnglex1 = angle();
-  const incAngley1 = angle();
+
 
   return <>{systemBus.map((bit, i) => <Rect
     key={i}
     x={lineWidth + gap * i}
     y={lineWidth + gap * i}
-    width={parentDimension.width - 2 * (lineWidth + gap * i)}
-    height={parentDimension.height - 2 * (lineWidth + gap * i)}
+    width={KonvaTheme.stage.width - 2 * (lineWidth + gap * i)}
+    height={KonvaTheme.stage.height - 2 * (lineWidth + gap * i)}
     stroke={bit === 1 ? KonvaTheme.bus.onColor : KonvaTheme.bus.ofColor}
     strokeWidth={KonvaTheme.bus.strokeWidth}
   />)}
 
 
+  <Connection gap={gap} direction="up" basePoints={[
+      KonvaTheme.register.tmp.x + (KonvaTheme.register.width - busWidth) / 2, 0,
+      KonvaTheme.register.tmp.x + (KonvaTheme.register.width - busWidth) / 2, KonvaTheme.register.tmp.y
+    ]} />
+
+  <Connection gap={gap} direction="up" basePoints={[
+      KonvaTheme.register.R0.x + (KonvaTheme.register.width - busWidth) / 2, 0,
+      KonvaTheme.register.R0.x + (KonvaTheme.register.width - busWidth) / 2, KonvaTheme.register.R0.y
+    ]} />
+
+<Connection gap={gap} direction="up" basePoints={[
+      KonvaTheme.register.R1.x + (KonvaTheme.register.width - busWidth) / 2, 0,
+      KonvaTheme.register.R1.x + (KonvaTheme.register.width - busWidth) / 2, KonvaTheme.register.R1.y
+    ]} />
+
     <Connection gap={gap} direction="up" basePoints={[
+      KonvaTheme.register.R2.x + (KonvaTheme.register.width - busWidth) / 2, 0,
+      KonvaTheme.register.R2.x + (KonvaTheme.register.width - busWidth) / 2, KonvaTheme.register.R2.y
+    ]} />
+
+    <Connection gap={gap} direction="up" basePoints={[
+      KonvaTheme.register.R3.x + (KonvaTheme.register.width - busWidth) / 2, 0,
+      KonvaTheme.register.R3.x + (KonvaTheme.register.width - busWidth) / 2, KonvaTheme.register.R3.y
+    ]} />
+
+       <Connection gap={gap} direction="up" basePoints={[
+      KonvaTheme.register.mar.x + (KonvaTheme.register.width - busWidth) / 2, 0,
+      KonvaTheme.register.mar.x + (KonvaTheme.register.width - busWidth) / 2, KonvaTheme.register.mar.y
+    ]} />
+
+   <Connection gap={gap} direction="down" basePoints={[
+      KonvaTheme.register.acc.x + (KonvaTheme.register.width - busWidth) / 2, KonvaTheme.register.acc.y,
+      KonvaTheme.register.acc.x + (KonvaTheme.register.width - busWidth) / 2, 0
+    ]} />
+    {/* <Connection gap={gap} direction="up" basePoints={[
       1000, 0,
       1000, 200
     ]} />
@@ -64,9 +87,9 @@ export default function SystemBus(props: ISystemBus): JSX.Element {
         + KonvaTheme.bus.strokeWidth
       }
       y={KonvaTheme.stage.height - 200}
-    />
+    /> */}
 
-     <Connection connectToMainBus={false} gap={gap} direction="left" basePoints={[
+     {/* <Connection connectToMainBus={false} gap={gap} direction="left" basePoints={[
        lineWidth+200+busWidth, KonvaTheme.stage.height -200 - busWidth - lineWidth,
       lineWidth+500 + busWidth, KonvaTheme.stage.height -200- busWidth - lineWidth
     ]} />
@@ -93,7 +116,7 @@ export default function SystemBus(props: ISystemBus): JSX.Element {
     <Connection gap={gap} direction="right" basePoints={[
       0, 300,
       300, 300
-    ]} />
+    ]} /> */}
 
 
 

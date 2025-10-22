@@ -47,7 +47,7 @@ export default function ResponsiveStage() {
 
 
     return (
-        <Stage width={KonvaTheme.stage.width} height={KonvaTheme.stage.height} >
+        <Stage width={KonvaTheme.stage.width} height={KonvaTheme.stage.height} scaleX={0.615} scaleY={0.621}>
             {/* <Layer>
                 <Rect x={0} y={0} width={dimensions.width} height={dimensions.height} /> 
                 <SystemBus parentDimension={{ width: dimensions.width, height: dimensions.height }} />
@@ -67,7 +67,7 @@ export default function ResponsiveStage() {
 
             
             </Layer> */}
-            <TopLayer parentDimensions={{width: 2000, height: 1400}}/>
+            <TopLayer />
         </Stage>
     );
 }

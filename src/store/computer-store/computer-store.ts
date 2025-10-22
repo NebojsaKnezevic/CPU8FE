@@ -4,6 +4,13 @@ import type { Bit, Byte } from "../../../../CPU8/dist/interface/interfaces";
 const defaultByte: Byte = [0, 0, 0, 0, 0, 0, 0, 0];
 
 interface IComputerStore {
+  // tmp: Byte;
+  // tmpSet: Bit;
+  // tmpEnable: Bit;
+  // setTmp: (tmpData: Byte) => void;
+  // setTmps: (tmpDatas: Bit) => void;
+  // setTmpe: (tmpDatae: Bit) => void;
+
   r0: Byte;
   r0Set: Bit;
   r0Enable: Bit;
@@ -155,12 +162,12 @@ const useComputerStore = create<IComputerStore>((set) => ({
   setFlagse: (signal) => set({ flagsEnable: signal }),
 
   systemBuss: defaultByte,
-  setBussData: (newData) => set({systemBuss: newData}),
+  setBussData: (newData) => set({ systemBuss: newData }),
 
   setSignal: 0,
   enableSignal: 0,
-  setSetSignal: (signal) => set({setSignal: signal}),
-  setEnableSignal: (signal) => set({enableSignal : signal})
+  setSetSignal: (signal) => set({ setSignal: signal }),
+  setEnableSignal: (signal) => set({ enableSignal: signal })
 }));
 
 export default useComputerStore;

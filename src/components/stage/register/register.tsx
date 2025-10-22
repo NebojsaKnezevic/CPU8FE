@@ -31,7 +31,7 @@ export default function R0(props: IRegisterUI): JSX.Element {
                 x={x}
                 y={y}
                 text={data?.toString().replaceAll(',', '')}
-                fontSize={height * 0.04}
+                fontSize={16}
                 fontFamily="Calibri"
                 fill="darkyellow"
                 align="center"
@@ -41,7 +41,7 @@ export default function R0(props: IRegisterUI): JSX.Element {
                 x={x}
                 y={y - height * .4}
                 text={name}
-                fontSize={height * .04}
+                fontSize={16}
                 fontFamily="Calibri"
                 fill="red"
                 align="center"
