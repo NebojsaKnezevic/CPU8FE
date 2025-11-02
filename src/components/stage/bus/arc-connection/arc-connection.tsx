@@ -1,7 +1,8 @@
 import type { JSX } from "react";
-import useRegisters from "../../../../hooks/use-registers";
+
 import { KonvaTheme } from "../../../../constants/konva-theme";
 import { Arc } from "react-konva";
+import { useTemporarly } from "../../../../hooks/use-registers";
 
 
 interface IArcProp {
@@ -19,7 +20,7 @@ function angle() {
 
 export default function ArcConnection(props: IArcProp): JSX.Element[] {
     const { reverse, rotation, x, y } = props;
-    const { systemBus } = useRegisters();
+    const { systemBus, setSystemBus, setSignal, enableSignal, setSetSignal, setEnableSignal } = useTemporarly();
 
     const bus = [...systemBus];
     if (reverse) bus.reverse();

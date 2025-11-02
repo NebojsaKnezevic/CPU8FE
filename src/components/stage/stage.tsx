@@ -2,7 +2,6 @@ import { Stage, Layer, Rect, Group } from "react-konva";
 import { useEffect, useState } from "react";
 import SystemBus from "./bus/bus";
 import Register from "./register/register";
-import useRegisters from "../../hooks/use-registers";
 import TopLayer from "./top-layer";
 import type { IElementInfo } from "../../interfaces/parent-dimensions";
 import { KonvaTheme } from "../../constants/konva-theme";
@@ -47,26 +46,8 @@ export default function ResponsiveStage() {
 
 
     return (
-        <Stage width={KonvaTheme.stage.width} height={KonvaTheme.stage.height} scaleX={0.615} scaleY={0.621}>
-            {/* <Layer>
-                <Rect x={0} y={0} width={dimensions.width} height={dimensions.height} /> 
-                <SystemBus parentDimension={{ width: dimensions.width, height: dimensions.height }} />
-                <Group x={dimensions.width * 0.65} y={120}>
-                    {[r0, r1, r2, r3].map((reg, i) => (
-                        <Register
-                            key={i}
-                            x={i * (dimensions.width * 0.05 + 20)} // width + padding
-                            y={0}
-                            data={reg}
-                            width={dimensions.width * 0.05}
-                            height={dimensions.height * 0.05}
-                            name={`R${i}`}
-                        />
-                    ))}
-                </Group>
-
+        <Stage draggable  width={KonvaTheme.stage.width} height={KonvaTheme.stage.height} scaleX={0.38} scaleY={0.38}>
             
-            </Layer> */}
             <TopLayer />
         </Stage>
     );
