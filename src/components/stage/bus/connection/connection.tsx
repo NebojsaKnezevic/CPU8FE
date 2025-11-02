@@ -1,6 +1,7 @@
 import { Line } from "react-konva";
-import useRegisters from "../../../../hooks/use-registers";
+// import useRegisters from "../../../../hooks/use-registers";
 import { KonvaTheme } from "../../../../constants/konva-theme";
+import { useTemporarly } from "../../../../hooks/use-registers";
 
 interface IConnectionProps {
     gap: number;
@@ -12,16 +13,14 @@ interface IConnectionProps {
 type Direction = 'left' | 'right' | 'up' | 'down'
 
 export default function Connection(props: IConnectionProps) {
-    const {gap, direction, basePoints, connectToMainBus = true, reverse = false } = props;
+    const { gap, direction, basePoints, connectToMainBus = true, reverse = false } = props;
 
 
-    const {
-        systemBus
-    } = useRegisters();
+    const { systemBus, setSystemBus, setSignal, enableSignal, setSetSignal, setEnableSignal } = useTemporarly();
 
     const bus = [...systemBus];
 
-    if(reverse) bus.reverse();
+    if (reverse) bus.reverse();
 
     return (
         <>
@@ -63,15 +62,15 @@ export default function Connection(props: IConnectionProps) {
                         }
                         else //y dole
                         {
-                            if(!connectToMainBus) calc = 0;
+                            if (!connectToMainBus) calc = 0;
                             if (j === 1) {
-                                return  p ;
+                                return p;
                             }
                             else
-                                return KonvaTheme.stage.height - calc ;
+                                return KonvaTheme.stage.height - calc;
                         }
                     } else {
-                         if (j % 2 !== 0) //y
+                        if (j % 2 !== 0) //y
                         {
                             return p + calc;
                         }
@@ -94,7 +93,7 @@ export default function Connection(props: IConnectionProps) {
                         key={i}
                         points={shiftedPoints || [0, 0]}
                         stroke={bit === 1 ? KonvaTheme.bus.onColor : KonvaTheme.bus.ofColor}
-                        strokeWidth={KonvaTheme.bus.strokeWidth}
+                        strokeWidth={bit === 0 ? KonvaTheme.bus.strokeWidth : KonvaTheme.bus.strokeWidth * 2}
                         lineCap="round"
                         lineJoin="round"
                     />

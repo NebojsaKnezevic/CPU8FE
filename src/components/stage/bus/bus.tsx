@@ -1,9 +1,10 @@
 import type { JSX } from "react";
 import { Arc, Rect } from "react-konva";
-import useRegisters from "../../../hooks/use-registers";
+// import useRegisters from "../../../hooks/use-registers";
 import { KonvaTheme } from "../../../constants/konva-theme";
 import Connection from "./connection/connection";
 import ArcConnection from "./arc-connection/arc-connection";
+import { useTemporarly } from "../../../hooks/use-registers";
 
 
 function angle() {
@@ -18,9 +19,7 @@ export default function SystemBus(): JSX.Element {
   const lineWidth = KonvaTheme.bus.strokeWidth;
   const busWidth = KonvaTheme.bus.busWidth([0,0,0,0,0,0,0,0], gap);
 
-  const {
-    systemBus
-  } = useRegisters();
+  const { systemBus, setSystemBus, setSignal, enableSignal, setSetSignal, setEnableSignal } = useTemporarly();
 
 
 
@@ -31,7 +30,7 @@ export default function SystemBus(): JSX.Element {
     width={KonvaTheme.stage.width - 2 * (lineWidth + gap * i)}
     height={KonvaTheme.stage.height - 2 * (lineWidth + gap * i)}
     stroke={bit === 1 ? KonvaTheme.bus.onColor : KonvaTheme.bus.ofColor}
-    strokeWidth={KonvaTheme.bus.strokeWidth}
+    strokeWidth={bit === 0 ? KonvaTheme.bus.strokeWidth : KonvaTheme.bus.strokeWidth * 2}
   />)}
 
 
@@ -69,6 +68,14 @@ export default function SystemBus(): JSX.Element {
       KonvaTheme.register.acc.x + (KonvaTheme.register.width - busWidth) / 2, KonvaTheme.register.acc.y,
       KonvaTheme.register.acc.x + (KonvaTheme.register.width - busWidth) / 2, 0
     ]} />
+
+
+    <Connection gap={gap} direction="down" basePoints={[
+      
+      KonvaTheme.ram.x + 600, KonvaTheme.ram.height * 1.175,
+      KonvaTheme.ram.x + 600, KonvaTheme.ram.y 
+    ]}/>
+
     {/* <Connection gap={gap} direction="up" basePoints={[
       1000, 0,
       1000, 200

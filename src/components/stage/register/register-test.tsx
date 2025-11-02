@@ -20,16 +20,18 @@ export default function Register(props: IRegisterUI): JSX.Element {
     const setEnablePinLength = 20;
 
     let regColor = 'lightgrey';
+    const setColor = KonvaTheme.stage.setColor;
+    const enableColor = KonvaTheme.stage.enableColor;
 
-    if(set) regColor = "orange";
-    if(enable) regColor = "blue";
-
+    if (set) regColor = setColor;
+    if (enable) regColor = enableColor;
+    // console.log("RERENDER")
     return (
         <Group x={x} y={y}>
-     
+
 
             <Rect
-                strokeWidth={KonvaTheme.register.strokeWidth+2}
+                strokeWidth={KonvaTheme.register.strokeWidth + 2}
                 stroke={regColor}
                 width={width}
                 height={height}
@@ -39,7 +41,7 @@ export default function Register(props: IRegisterUI): JSX.Element {
                 width={width}
                 height={height}
                 text={name}
-                fontSize={22}
+                fontSize={35}
                 fontFamily="Calibri"
                 fill="red"
                 align="center"
@@ -49,11 +51,11 @@ export default function Register(props: IRegisterUI): JSX.Element {
                 width={width}
                 height={height}
                 text={data?.toString().replaceAll(',', '')}
-                fontSize={22}
+                fontSize={35}
                 fontFamily="Calibri"
                 fill="red"
                 align="center"
-                offsetY={-16}
+                offsetY={-30}
             />
         </Group>
 
